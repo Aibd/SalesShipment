@@ -29,17 +29,17 @@ class SqliteDBManager:
         columns_str = ', '.join(columns)
         placeholders = ', '.join('?' * len(columns))
         query = f"INSERT INTO {table} ({columns_str}) VALUES ({placeholders})"
-        self.execute_query(query, values)
+        self.execute(query, values)
 
     def update(self, table, set_columns, values):
         set_clause = ', '.join([f"{col} = ?" for col in set_columns])
         query = f"UPDATE {table} SET {set_clause} WHERE id = ?"
-        self.execute_query(query, values)
+        self.execute(query, values)
 
     def delete(self, table, ids):
         query = f"DELETE FROM {table} WHERE id = ?"
         id_tuples = [(id_,) for id_ in ids]
-        self.execute_query(query, id_tuples)
+        self.execute(query, id_tuples)
 
 
 # if __name__ == "__main__":
