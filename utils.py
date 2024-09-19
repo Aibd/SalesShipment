@@ -4,7 +4,7 @@ from jdy import JDYApi
 
 
 # 金蝶字段转换为简道云对应值的字段编号
-def kdata_field_to_jdy(kingdee_data):
+def kdata_field_to_jdy(company, kingdee_data):
     # 简道云表单查询接口调用
     api_key = "1ENC5lt8m3pf97kiKnATic26eTIXQKR5"
     app_id = "65bc6159daf9cea1dbb5be86"
@@ -25,13 +25,17 @@ def kdata_field_to_jdy(kingdee_data):
             kingdee_data[k][30] = users[kingdee_data[k][30]]
         else:
             kingdee_data[k][30] = users['张木森']
-        kingdee_data[k][32] = dept['华东销售']
+        if company == '希肤上海':
+            kingdee_data[k][32] = dept['华东销售']
+        elif company == '希肤广州':
+            kingdee_data[k][32] = dept['华南销售']
+
     return kingdee_data
 
 
 # 金蝶数据转换为简道云接口payload数据包格式
-def data_process(kingdee_data, jdy_data):
-    kdata = kdata_field_to_jdy(kingdee_data)
+def data_process(company, kingdee_data, jdy_data):
+    kdata = kdata_field_to_jdy(company, kingdee_data)
     jdy_data["transaction_id"] = str(uuid.uuid4())
     data_dict = jdy_data['data_list'][0]
     fields = list(data_dict.keys())
@@ -42,4 +46,3 @@ def data_process(kingdee_data, jdy_data):
 
     jdy_data['data_list'] = datalist
     return jdy_data
-

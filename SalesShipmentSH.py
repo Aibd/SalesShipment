@@ -8,6 +8,7 @@ import random
 import utils
 
 
+company = '希肤上海'
 # 简道云批量删除数据
 def delete_jdy_data(jdy_api, kdata):
     query_data = Common.query_data
@@ -78,7 +79,7 @@ def SalesShipmentSH():
                 # 先判断新增数据是否已存在，如果已存在先删除再添加
                 delete_jdy_data(jdy_api, batch)
                 # 上传简道云并写入本地Sqlite映射表
-                processed_data = utils.data_process(batch, Common.jdy_salesshipment_data)
+                processed_data = utils.data_process(company, batch, Common.jdy_salesshipment_data)
                 result = jdy_api.upload(processed_data)
                 if result is not None:
                     log.info("简道云上传结果：" + str(result))
@@ -91,7 +92,7 @@ def SalesShipmentSH():
             # 先判断新增数据是否已存在，如果已存在先删除再添加
             delete_jdy_data(jdy_api, differences)
             # 上传简道云并写入本地Sqlite映射表
-            processed_data = utils.data_process(differences, Common.jdy_salesshipment_data)
+            processed_data = utils.data_process(company, differences, Common.jdy_salesshipment_data)
             result = jdy_api.upload(processed_data)
             if result is not None:
                 log.info("简道云上传结果：" + str(result))

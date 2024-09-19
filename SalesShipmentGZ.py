@@ -7,6 +7,8 @@ import time
 import random
 import utils
 
+company = '希肤广州'
+
 
 # 简道云批量删除数据
 def delete_jdy_data(jdy_api, kdata):
@@ -63,7 +65,7 @@ def SalesShipmentGZ():
         # 删除成功 输出日志，同时删除sqlite映射数据
         log.info(result)
         delete_sqlite_data('SalesShipment.db', 'salesshipment', deleted_kdata)
-        log.info('deleted_kdata: ',deleted_kdata)
+        log.info('deleted_kdata: ', deleted_kdata)
     # 比对更新和增量数据，同步数据（同步时校验被同步端是否存在，存在则删除后同步最新数据）
     with SqliteDBManager('SalesShipment.db') as sqlitemanager:
         diff_sql = Common.differences_sql.format(company='希肤广州')
@@ -79,7 +81,7 @@ def SalesShipmentGZ():
                 # 先判断新增数据是否已存在，如果已存在先删除再添加
                 delete_jdy_data(jdy_api, batch)
                 # 上传简道云并写入本地Sqlite映射表
-                processed_data = utils.data_process(batch, Common.jdy_salesshipment_data)
+                processed_data = utils.data_process(company, batch, Common.jdy_salesshipment_data)
                 result = jdy_api.upload(processed_data)
                 if result is not None:
                     log.info("简道云上传结果：" + str(result))
@@ -92,7 +94,7 @@ def SalesShipmentGZ():
             # 先判断新增数据是否已存在，如果已存在先删除再添加
             delete_jdy_data(jdy_api, differences)
             # 上传简道云并写入本地Sqlite映射表
-            processed_data = utils.data_process(differences, Common.jdy_salesshipment_data)
+            processed_data = utils.data_process(company, differences, Common.jdy_salesshipment_data)
             result = jdy_api.upload(processed_data)
             if result is not None:
                 log.info("简道云上传结果：" + str(result))
