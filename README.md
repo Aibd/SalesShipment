@@ -8,10 +8,10 @@
 - 数据转换  utils.py
 - 参数和SQL common.py
 
-## 入库文件
+## 主程序入口文件
 - SalesShipmentMain.py
 
 ## 编译打包
-'''
+```
 nuitka --onefile --windows-disable-console SalesShipmentMain.py --output-file=SalesShipment.exe --output-dir=.dist
-'''
+```
