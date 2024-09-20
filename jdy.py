@@ -26,10 +26,11 @@ class JDYApi:
         url = f"{self.base_url}list"
         try:
             result = self._send_request(url, query_data)
+            ids = [i['_id'] for i in result['data']]
+            return ids
         except requests.RequestException as e:
             raise f'Error during query_dataid API request: {str(e)}'
-        ids = [i['_id'] for i in result['data']]
-        return ids
+
 
 
     # 删除多条数据接口一次最多支持删除 100 条数据, 10 次/秒
@@ -70,4 +71,3 @@ class JDYApi:
         if not dept_no:
             return None
         return dept_no
-
