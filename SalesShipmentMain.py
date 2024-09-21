@@ -5,8 +5,12 @@ import random
 
 
 def salesshipment_function():
-    SalesShipmentGZ()
-    SalesShipmentSH()
+    companygz = '希肤广州'
+    companysh = '希肤广州'
+    dbname = 'SalesShipment.db'
+    tablename = 'salesshipment'
+    SalesShipmentGZ(companygz, dbname, tablename)
+    SalesShipmentSH(companysh, dbname, tablename)
 
 
 if __name__ == '__main__':

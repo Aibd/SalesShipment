@@ -4,7 +4,8 @@ from jdy import JDYApi
 
 
 # 金蝶字段转换为简道云对应值的字段编号
-def kdata_field_to_jdy(company, kingdee_data):
+def kdata_field_to_jdy(company, kdata):
+    kingdee_data = deepcopy(kdata)
     # 简道云表单查询接口调用
     api_key = "1ENC5lt8m3pf97kiKnATic26eTIXQKR5"
     app_id = "65bc6159daf9cea1dbb5be86"
